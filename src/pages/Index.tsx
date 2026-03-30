@@ -6,6 +6,9 @@ import WorldMap from "@/components/WorldMap";
 import CityRanking from "@/components/CityRanking";
 import WhySection from "@/components/WhySection";
 import ComparisonCalculator from "@/components/ComparisonCalculator";
+import ShareableCard from "@/components/ShareableCard";
+import FinancialQuiz from "@/components/FinancialQuiz";
+import FinancialTips from "@/components/FinancialTips";
 import { type CityData, formatMinutes } from "@/data/cities";
 
 const Index = () => {
@@ -15,7 +18,6 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="section-espresso min-h-screen flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden">
-        {/* Subtle texture overlay */}
         <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_30%_40%,hsl(44,52%,54%)_0%,transparent_50%)]" />
 
         <motion.div
@@ -93,6 +95,19 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Shareable Card */}
+      {selectedCity && (
+        <section className="section-cream px-6 py-16">
+          <h2 className="font-display text-3xl md:text-4xl text-espresso text-center mb-2">
+            Share Your Result
+          </h2>
+          <p className="text-center text-muted-foreground mb-8 font-body">
+            Download or share your city's latte index card
+          </p>
+          <ShareableCard selectedCity={selectedCity} />
+        </section>
+      )}
+
       {/* City Ranking */}
       <section className="section-cream px-6 py-20">
         <CityRanking selectedCity={selectedCity} />
@@ -103,9 +118,37 @@ const Index = () => {
         <WhySection />
       </section>
 
-      {/* Comparison Calculator */}
+      {/* Financial Quiz */}
       <section className="section-cream px-6 py-20">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="font-display text-3xl md:text-4xl text-espresso text-center mb-2">
+            Test Your Knowledge
+          </h2>
+          <p className="text-center text-muted-foreground mb-8 font-body">
+            How well do you understand global economics and financial literacy?
+          </p>
+          <FinancialQuiz />
+        </div>
+      </section>
+
+      {/* Comparison Calculator */}
+      <section className="section-cream px-6 py-20 bg-cream-dark">
         <ComparisonCalculator selectedCity={selectedCity} />
+      </section>
+
+      {/* Financial Tips */}
+      <section className="section-cream px-6 py-20">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display text-3xl md:text-4xl text-espresso text-center mb-2">
+            Financial Literacy Insights
+          </h2>
+          <p className="text-center text-muted-foreground mb-8 font-body">
+            {selectedCity
+              ? `Personalized tips for someone earning ${selectedCity.city}'s median wage`
+              : "Select a city to get personalized financial insights"}
+          </p>
+          <FinancialTips selectedCity={selectedCity} />
+        </div>
       </section>
 
       {/* Footer */}
